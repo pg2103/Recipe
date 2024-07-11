@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import { Link } from "react-router-dom";
 
 function Popular() {
   const [popular, setPopular] = useState([]);
@@ -20,7 +21,7 @@ function Popular() {
       localStorage.setItem("popular", JSON.stringify(data.recipes));
       setPopular(data.recipes);
     }
-  }; // Added missing closing bracket for getPopular function
+  }; 
 
   return (
     <Wrapper>
@@ -35,10 +36,12 @@ function Popular() {
       }}>
         {popular.map((recipe) => (
           <SplideSlide key={recipe.id}>
+            <Link to={`/recipe/${recipe.id}`}>
             <Card>
               <p>{recipe.title}</p>
               <img src={recipe.image} alt={recipe.title} />
             </Card>
+            </Link>
           </SplideSlide>
         ))}
       </Splide>
@@ -83,11 +86,10 @@ const Card = styled.div`
   }
 `;
 
-const Gradient = styled.div`
-  z-index: 3;
-  position: absolute; // Corrected typo: was 'postion'
-  width: 100%;
-  height: 100%; // Corrected typo: was 'heigth'
-`;
+// const Gradient = styled.div`
+//   z-index: 3;
+//   position: absolute; 
+//   height: 100%; 
+// `;
 
 export default Popular;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
+import { Link } from "react-router-dom";
 
 function Veggie() {
   const [veggie, setVeggies] = useState([]);
@@ -35,10 +36,13 @@ function Veggie() {
       }}>
         {veggie.map((recipe) => (
           <SplideSlide key={recipe.id}>
-            <Card>
-              <p>{recipe.title}</p>
-              <img src={recipe.image} alt={recipe.title} />
-            </Card>
+            <Link to={`/recipe/${recipe.id}`}>
+              <Card>
+                <p>{recipe.title}</p>
+                <img src={recipe.image} alt={recipe.title} />
+                <Gradient /> {/* Added Gradient inside Card */}
+              </Card>
+            </Link>
           </SplideSlide>
         ))}
       </Splide>
@@ -88,6 +92,7 @@ const Gradient = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
 `;
 
 export default Veggie;
